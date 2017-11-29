@@ -140,7 +140,6 @@ public class MessageItemsListView extends SwipeRefreshLayout implements LayerCha
         mAdapter.setStyle(mMessageStyle);
         if (!mAdapter.hasObservers()) {
             mAdapter.registerAdapterDataObserver(dataObserver);
-            dataObserver.onChanged();
         }
         mMessagesRecyclerView.setAdapter(adapter);
         setShouldShowAvatarInOneOnOneConversations(mShouldShowAvatarsInOneOnOneConversations);

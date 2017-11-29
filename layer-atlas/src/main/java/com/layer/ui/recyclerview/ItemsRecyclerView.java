@@ -2,6 +2,7 @@ package com.layer.ui.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
@@ -15,6 +16,30 @@ public class ItemsRecyclerView<ITEM extends Queryable> extends RecyclerView {
 
     protected ItemRecyclerViewAdapter mAdapter;
     protected ItemTouchHelper mSwipeItemTouchHelper;
+
+    private RecyclerView.AdapterDataObserver mDataObserver = new RecyclerView.AdapterDataObserver() {
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount);
+            scrollToTopIfNeeded(toPosition);
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
+            scrollToTopIfNeeded(positionStart);
+        }
+
+        private void scrollToTopIfNeeded(int toPosition) {
+            if (getLayoutManager() instanceof LinearLayoutManager) {
+                int firstVisiblePosition = ((LinearLayoutManager) getLayoutManager()).findFirstVisibleItemPosition();
+                if (toPosition == 0 && firstVisiblePosition  < 3) {
+                    scrollToPosition(toPosition);
+                }
+            }
+        }
+    };
 
     public ItemsRecyclerView(Context context) {
         super(context);
@@ -35,12 +60,22 @@ public class ItemsRecyclerView<ITEM extends Queryable> extends RecyclerView {
     @Override
     public void setAdapter(Adapter adapter) {
         if (adapter instanceof ItemRecyclerViewAdapter) {
-            super.setAdapter(adapter);
-            mAdapter = (ItemRecyclerViewAdapter) adapter;
-            refresh();
+            //TODO This check should be removed, this is called multiple time during notifyChange
+            //And it causes IllegalStateException when the same Adapter is registered with same Observer.
+            if (adapter != getAdapter()) {
+                super.setAdapter(adapter);
+                mAdapter = (ItemRecyclerViewAdapter) adapter;
+                registerAdapterDataObserver();
+                refresh();
+            }
+
         } else {
             throw new IllegalArgumentException("Adapter must be of type ItemRecyclerViewAdapter");
         }
+    }
+
+    private void registerAdapterDataObserver() {
+        mAdapter.registerAdapterDataObserver(mDataObserver);
     }
 
     /**
@@ -49,6 +84,9 @@ public class ItemsRecyclerView<ITEM extends Queryable> extends RecyclerView {
     public void onDestroy() {
         if (mAdapter != null) {
             mAdapter.onDestroy();
+            if (mAdapter.hasObservers()) {
+                mAdapter.unregisterAdapterDataObserver(mDataObserver);
+            }
         }
     }
 

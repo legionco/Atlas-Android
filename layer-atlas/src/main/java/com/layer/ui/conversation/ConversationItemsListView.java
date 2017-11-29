@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import com.layer.sdk.messaging.Conversation;
 import com.layer.ui.adapters.ConversationItemsAdapter;
-
 import com.layer.ui.fourpartitem.FourPartItemsListView;
 
 public class ConversationItemsListView extends FourPartItemsListView<Conversation, ConversationItemsAdapter> {
