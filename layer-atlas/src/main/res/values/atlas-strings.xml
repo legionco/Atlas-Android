@@ -24,6 +24,7 @@
     <string name="atlas_message_item_delivered">Delivered</string>
 
     <string name="atlas_notification_text">%1$s: %2$s</string>
+    <string name="atlas_notification_gif">Attachment from %1$s: Gif</string>
     <string name="atlas_notification_image">Attachment from %1$s: Image</string>
     <string name="atlas_notification_location">Attachment from %1$s: Location</string>
 
@@ -32,6 +33,7 @@
     <string name="atlas_text_cell_factory_clipboard_description">Message</string>
     <string name="atlas_text_cell_factory_copied_to_clipboard">Copied to clipboard</string>
 
+    <string name="atlas_message_preview_gif">Attachment: Gif</string>
     <string name="atlas_message_preview_image">Attachment: Image</string>
     <string name="atlas_message_preview_location">Attachment: Location</string>
 
@@ -60,4 +62,6 @@
     <string name="atlas_message_composer_send_button">SEND</string>
     <string name="attach_media">attach media</string>
 
+    <string name="attachment_menu_gif">Gif</string>
+    <string name="tenor_search_hint">Search Tenor for GIFs</string>
 </resources>

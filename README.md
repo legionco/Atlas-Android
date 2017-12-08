@@ -1,6 +1,6 @@
 # Atlas
 
-## <a name="overview"></a>Overview
+##<a name="overview"></a>Overview
 
 Atlas is an open source framework of customizable UI components for use with the Layer SDK designed to get messaging tested and integrated quickly.  This repository contains the Atlas library.  For a fully-featured messaging app, see the open source [Atlas Messenger](https://github.com/layerhq/Atlas-Android-Messenger) project, which uses this Atlas library and the Layer SDK.
 
@@ -104,7 +104,7 @@ conversationsList = ((AtlasConversationsRecyclerView) findViewById(R.id.conversa
 		    return false;
 		}
 	})
-    .addCellFactories(new TextCellFactory(), 
+    .addCellFactories(new TextCellFactory(),
     new ThreePartImageCellFactory(layerClient, picasso),
     new LocationCellFactory(picasso),
     new SinglePartImageCellFactory(layerClient, picasso));
@@ -266,12 +266,12 @@ addressBar = (AtlasAddressBar) findViewById(R.id.address_bar)
 ```java
 	    // To create an avatar
             mAvatarCluster = (AtlasAvatar) itemView.findViewById(R.id.avatar);
-	    
+
 	    // To initialize Picasso
 	    viewHolder.mAvatarCluster
 		.init(mPicasso)
 		.setStyle(conversationStyle.getAvatarStyle());
-		
+
 	    // To set identites meant for the avatar cluster
 	    HashSet<Identity> participants = new HashSet<>(conversation.getParticipants());
 	    viewHolder.mAvatarCluster.setParticipants(participants);
