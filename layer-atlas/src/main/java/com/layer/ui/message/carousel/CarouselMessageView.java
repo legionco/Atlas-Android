@@ -30,7 +30,7 @@ public class CarouselMessageView extends MessageView<CarouselMessageModel> {
         mRecyclerView = new RecyclerView(context, attrs, defStyleAttr);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        mRecyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
         addView(mRecyclerView);

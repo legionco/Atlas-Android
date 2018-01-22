@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.layer.sdk.messaging.Message;
 import com.layer.ui.message.model.MessageModel;
 import com.layer.ui.message.viewer.MessageViewer;
 
@@ -12,9 +11,7 @@ import java.util.List;
 
 class MessageViewerRecyclerViewAdapter extends RecyclerView.Adapter<MessageViewerRecyclerViewAdapter.ViewHolder> {
     private Context mContext;
-    private Message mMessage;
     private List<MessageModel> mMessageModels;
-
 
     public MessageViewerRecyclerViewAdapter(Context context) {
         mContext = context;
