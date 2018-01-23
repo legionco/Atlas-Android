@@ -6,15 +6,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 import com.layer.ui.message.container.EmptyMessageContainer;
 import com.layer.ui.message.container.MessageContainer;
 import com.layer.ui.message.container.StandardMessageContainer;
+import com.layer.ui.message.model.MessageModel;
 import com.layer.ui.message.view.MessageView;
+import com.layer.ui.message.viewer.MessageViewer;
 
 public class CarouselMessageView extends MessageView<CarouselMessageModel> {
-    private RecyclerView mRecyclerView;
-    private MessageViewerRecyclerViewAdapter mAdapter;
+    private HorizontalScrollView mScrollView;
+    private LinearLayout mLinearLayout;
+
     private CarouselMessageModel mModel;
 
     public CarouselMessageView(Context context) {
@@ -27,22 +32,34 @@ public class CarouselMessageView extends MessageView<CarouselMessageModel> {
 
     public CarouselMessageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mRecyclerView = new RecyclerView(context, attrs, defStyleAttr);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context,
-                LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        mScrollView = new HorizontalScrollView(context, attrs, defStyleAttr);
+        mScrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        addView(mRecyclerView);
-        mAdapter = new MessageViewerRecyclerViewAdapter(context);
-        mRecyclerView.setAdapter(mAdapter);
+        mLinearLayout = new LinearLayout(context, attrs, defStyleAttr);
+        mLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        mScrollView.addView(mLinearLayout);
+        addView(mScrollView);
     }
 
     @Override
-    public void setMessageModel(CarouselMessageModel model) {
-        mModel = model;
-        mAdapter.setMessage(model.getCarouselItemModels());
-        mAdapter.notifyDataSetChanged();
+    public void setMessageModel(CarouselMessageModel carouselMessageModel) {
+        mModel = carouselMessageModel;
+        mLinearLayout.removeAllViews();
+
+        for (MessageModel model : carouselMessageModel.getCarouselItemModels()) {
+            LinearLayout innerLinearLayout = new LinearLayout(getContext());
+            innerLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            innerLinearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            MessageViewer messageViewer = new MessageViewer(getContext());
+            messageViewer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            messageViewer.bindModelToView(model);
+
+            innerLinearLayout.addView(messageViewer);
+            mLinearLayout.addView(innerLinearLayout);
+        }
     }
 
     @Override

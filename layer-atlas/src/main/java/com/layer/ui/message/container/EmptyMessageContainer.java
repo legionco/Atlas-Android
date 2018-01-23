@@ -31,7 +31,7 @@ public class EmptyMessageContainer extends MessageContainer {
     public void setMessageView(MessageView view) {
         mMessageView = view;
         view.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // TODO: AND-1242 Figure out how to not have to remove all the subviews in the content view

@@ -38,8 +38,11 @@ class MessageViewerRecyclerViewAdapter extends RecyclerView.Adapter<MessageViewe
         messageViewer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
-        return new ViewHolder(messageViewer);
+        messageViewer.setMaxHeight(500);
+        messageViewer.setMaxWidth(500);
+        ViewHolder holder = new ViewHolder(messageViewer);
+        holder.setIsRecyclable(false);
+        return holder;
     }
 
     @Override

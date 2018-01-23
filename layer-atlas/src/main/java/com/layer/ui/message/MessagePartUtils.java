@@ -24,6 +24,7 @@ public class MessagePartUtils {
     private static final String ROLE_ROOT = "root";
     private static final String ROLE_RESPONSE_SUMMARY = "response_summary";
     private static final String PARAMETER_KEY_PARENT_NODE_ID = "parent-node-id";
+    public static final String PARAMETER_ITEM_ORDER = "item-order";
 
     @Nullable
     public static String getMimeType(@NonNull MessagePart messagePart) {
@@ -144,8 +145,8 @@ public class MessagePartUtils {
                     Map<String, String> messagePartArguments = getMimeTypeArguments(messagePart);
                     Map<String, String> otherPartArguments = getMimeTypeArguments(otherPart);
 
-                    String messagePartOrder = messagePartArguments!=null ? messagePartArguments.get("item-order") : null;
-                    String otherPartOrder = otherPartArguments!=null ? otherPartArguments.get("item-order") : null;
+                    String messagePartOrder = messagePartArguments!=null ? messagePartArguments.get(PARAMETER_ITEM_ORDER) : null;
+                    String otherPartOrder = otherPartArguments!=null ? otherPartArguments.get(PARAMETER_ITEM_ORDER) : null;
 
                     if (messagePartOrder == null || otherPartOrder == null) {
                         return Integer.MAX_VALUE;
