@@ -67,6 +67,10 @@ public class ButtonMessageModel extends MessageModel {
 
     @Override
     public String getActionEvent() {
+        if (super.getActionEvent() != null) {
+            return super.getActionEvent();
+        }
+
         MessageModel contentModel = getContentModel();
         if (contentModel != null) {
             return contentModel.getActionEvent();
@@ -77,6 +81,10 @@ public class ButtonMessageModel extends MessageModel {
 
     @Override
     public JsonObject getActionData() {
+        if (super.getActionData().size() > 0) {
+            return super.getActionData();
+        }
+
         MessageModel contentModel = getContentModel();
         if (contentModel != null) {
             return contentModel.getActionData();

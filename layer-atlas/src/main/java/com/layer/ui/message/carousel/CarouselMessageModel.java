@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.MessagePart;
@@ -30,6 +31,19 @@ public class CarouselMessageModel extends MessageModel {
     @Override
     public Class<? extends MessageView> getRendererType() {
         return CarouselMessageView.class;
+    }
+
+    @Override
+    protected void processChildParts() {
+        super.processChildParts();
+        if (mMetadata != null && mMetadata.getAction() != null) {
+            List<MessageModel> childModels = getChildMessageModels();
+            if (childModels != null) {
+                for (MessageModel model : childModels) {
+                    model.setAction(mMetadata.getAction());
+                }
+            }
+        }
     }
 
     @Override
@@ -69,7 +83,19 @@ public class CarouselMessageModel extends MessageModel {
 
     @Override
     public String getActionEvent() {
-        return null;
+        if (super.getActionEvent() != null) {
+            return super.getActionEvent();
+        }
+        return mMetadata.getAction().getEvent();
+    }
+
+    @Override
+    public JsonObject getActionData() {
+        if (super.getActionData().size() > 0) {
+            return super.getActionData();
+        }
+
+        return mMetadata.getAction().getData();
     }
 
     @Override
