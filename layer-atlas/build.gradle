@@ -3,6 +3,10 @@ import java.util.regex.Pattern
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.legionco'
+
 apply from: project.file("version.gradle")
 
 ext.pomProjectName = 'Atlas library'
@@ -10,12 +14,12 @@ ext.artifactIdName = 'layer-atlas'
 group 'com.layer.atlas'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 27
         versionName = "${version}"
 
         consumerProguardFiles 'proguard-rules.pro'
@@ -45,31 +49,31 @@ ext {
 
 dependencies {
     // Layer SDK
-    compile ('com.layer.sdk:layer-sdk:0.23.26') {
+    implementation ('com.layer.sdk:layer-sdk:0.23.26') {
         exclude group: 'com.google.firebase', module: 'firebase-messaging'
         exclude group: 'com.google.firebase', module: 'firebase-core'
     }
-    compile 'org.slf4j:slf4j-nop:1.7.2'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
 
     // Google Location
-    compile 'com.google.android.gms:play-services-location:10.2.0'
+    implementation 'com.google.android.gms:play-services-location:11.8.0'
 
     // Image cache and loading
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     // Image popup
-    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.4.1'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.4.1'
 
     // Android UI
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
 
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
 
     // Espresso support
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
