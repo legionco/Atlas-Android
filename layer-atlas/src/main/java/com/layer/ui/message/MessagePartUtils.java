@@ -7,6 +7,8 @@ import com.layer.sdk.messaging.Message;
 import com.layer.sdk.messaging.MessagePart;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +137,26 @@ public class MessagePartUtils {
             }
         }
 
+        if (!children.isEmpty()) {
+            Collections.sort(children, new Comparator<MessagePart>() {
+                @Override
+                public int compare(MessagePart messagePart, MessagePart otherPart) {
+                    Map<String, String> messagePartArguments = getMimeTypeArguments(messagePart);
+                    Map<String, String> otherPartArguments = getMimeTypeArguments(otherPart);
+
+                    String messagePartOrder = messagePartArguments!=null ? messagePartArguments.get("item-order") : null;
+                    String otherPartOrder = otherPartArguments!=null ? otherPartArguments.get("item-order") : null;
+
+                    if (messagePartOrder == null || otherPartOrder == null) {
+                        return Integer.MAX_VALUE;
+                    } else {
+                        Integer messageOrder = Integer.parseInt(messagePartOrder);
+                        Integer otherOrder = Integer.parseInt(otherPartOrder);
+                        return messageOrder.compareTo(otherOrder);
+                    }
+                }
+            });
+        }
         return children;
     }
 
