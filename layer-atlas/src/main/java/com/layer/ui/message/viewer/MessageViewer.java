@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.layer.sdk.messaging.Message;
 import com.layer.sdk.messaging.MessagePart;
@@ -21,14 +19,11 @@ import com.layer.ui.util.Log;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class MessageViewer extends ConstraintLayout {
+public class MessageViewer extends FrameLayout {
     private MessageModelManager mMessageModelManager;
 
     private MessageContainer mMessageContainer;
     private MessageView mMessageView;
-
-    private int mMaxWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
-    private int mMaxHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
 
     public MessageViewer(@NonNull Context context) {
         this(context, null);
@@ -44,30 +39,6 @@ public class MessageViewer extends ConstraintLayout {
 
     public void setMessageModelManager(@NonNull MessageModelManager messageModelManager) {
         mMessageModelManager = messageModelManager;
-    }
-
-    @Override
-    public void setMaxWidth(int maxWidth) {
-//        super.setMaxWidth(maxWidth);
-        mMaxWidth = maxWidth;
-    }
-
-    public int getMaxWidthFromParentsParent() {
-        return ((View) getParent().getParent()).getWidth();
-    }
-
-    @Override
-    public void setMaxHeight(int maxHeight) {
-//        super.setMaxHeight(maxHeight);
-        mMaxHeight = maxHeight;
-    }
-
-    public int getMaxWidth() {
-        return mMaxWidth;
-    }
-
-    public int getMaxHeight() {
-        return mMaxHeight;
     }
 
     public void setMessage(@NonNull Message message) {
@@ -153,19 +124,6 @@ public class MessageViewer extends ConstraintLayout {
 
     protected void addContainer(@NonNull final MessageContainer container) {
         removeAllViews();
-        if (mMaxWidth >= 0 || mMaxHeight >= 0) {
-            //container.setMaxHeight(mMaxHeight);
-            //container.setMaxWidth(mMaxWidth);
-
-//            container.setMinHeight(600);
-
-            container.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            //container.setLayoutParams(new ViewGroup.LayoutParams(mMaxWidth, mMaxHeight));
-        } else {
-            container.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        }
-
         addView(container);
     }
 }

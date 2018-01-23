@@ -19,4 +19,5 @@
     <!-- # Recycler Maximum Cell Height Dimension                                             # -->
     <!-- ####################################################################################### -->
     <dimen name="layer_ui_messages_max_cell_height">876dp</dimen>
+    <dimen name="ui_text_message_view_max_width">280dp</dimen>
 </resources>

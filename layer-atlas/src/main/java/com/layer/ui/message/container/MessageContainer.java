@@ -7,14 +7,13 @@ import android.graphics.RectF;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.layer.ui.message.model.MessageModel;
 import com.layer.ui.message.view.MessageView;
 
-public abstract class MessageContainer extends ConstraintLayout {
+public abstract class MessageContainer extends FrameLayout {
     private Path mCornerClippingPath;
     private float mCornerRadius;
 

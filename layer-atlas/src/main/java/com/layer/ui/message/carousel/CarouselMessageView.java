@@ -49,16 +49,11 @@ public class CarouselMessageView extends MessageView<CarouselMessageModel> {
         mLinearLayout.removeAllViews();
 
         for (MessageModel model : carouselMessageModel.getCarouselItemModels()) {
-            LinearLayout innerLinearLayout = new LinearLayout(getContext());
-            innerLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            innerLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
             MessageViewer messageViewer = new MessageViewer(getContext());
             messageViewer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             messageViewer.bindModelToView(model);
 
-            innerLinearLayout.addView(messageViewer);
-            mLinearLayout.addView(innerLinearLayout);
+            mLinearLayout.addView(messageViewer);
         }
     }
 
