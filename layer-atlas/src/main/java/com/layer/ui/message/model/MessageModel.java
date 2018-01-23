@@ -144,7 +144,7 @@ public abstract class MessageModel extends BaseObservable implements LayerProgre
     }
 
     @Nullable
-    public List<MessageModel> getChildMessageModels() {
+    protected List<MessageModel> getChildMessageModels() {
         return mChildMessageModels;
     }
 
